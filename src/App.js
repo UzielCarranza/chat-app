@@ -1,13 +1,12 @@
 import './styling/App.css';
+import {Login} from './components/Login'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>test</h1>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+                <Login/>
+        </div>
+    );
 }
 
 export default App;
