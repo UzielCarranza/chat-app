@@ -1,5 +1,4 @@
 import {useState} from "react";
-import {findAllByDisplayValue} from "@testing-library/react";
 
 export const Login = () => {
     //hooks
@@ -23,11 +22,11 @@ export const Login = () => {
     }
 
     return (
-        <>
-            <form onSubmit={handleSubmit}>
+        <div className="form-wrapper">
+            <form className="login-form" onSubmit={handleSubmit}>
                 {/*username input*/}
-                <div>
-                    <label htmlFor="username">
+                <div className="divider">
+                    <label className="login-form-label" htmlFor="username">
                         Username
                     </label>
                     <input
@@ -35,13 +34,14 @@ export const Login = () => {
                         type="text"
                         name="username"
                         placeholder="Username"
+                        className="login-form-input"
                         onChange={event => setUsername(event.target.value)}
                         required
                     />
                 </div>
                 {/*password input*/}
-                <div>
-                    <label htmlFor="password">
+                <div className="divider">
+                    <label className="login-form-label" htmlFor="password">
                         Password
                     </label>
                     <input
@@ -49,32 +49,35 @@ export const Login = () => {
                         type="password"
                         name="password"
                         placeholder="password"
+                        className="login-form-input"
                         onChange={event => setPassword(event.target.value)}
                         required
                     />
                 </div>
 
                 {/*buttons and other links*/}
-                <div>
+                <div className="divider">
                     <button
                         type="submit"
                         id="login-btn"
                     >
                         Sign In
                     </button>
-                    <div className="w-40">
-                        <a className="inline-block align-baseline font-bold
-                                text-sm text-blue-500 hover:text-blue-800"
-                           href="#">
-                            Forgot Password?
-                        </a>
-                    </div>
+                </div>
+                <div className="login-form-button-wrapper">
+                    <button
+                        className="login-form-button"
+                        type="button">
+                        Sign In
+                    </button>
+                    <a className="login-form-links" href="#">
+                        Forgot Password?
+                    </a>
                 </div>
             </form>
-            <div>
-                <p>--------Or----------</p>
-                <button onClick={handleSignUp}>Sign up</button>
+            <div className="login-form-button-wrapper">
+                <button className="login-form-button" onClick={handleSignUp}>Sign up</button>
             </div>
-        </>
+        </div>
     )
 }
