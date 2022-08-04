@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom';
 export const Login = () => {
     //hooks
     //get and set username
-    const [username, setUsername] = useState(null);
+    const [email, setEmail] = useState(null);
     //get and set password
     const [password, setPassword] = useState(null);
 
@@ -17,7 +17,7 @@ export const Login = () => {
         event.preventDefault(); // 👈️ prevent page refresh
 
         // 👇️ access input values here
-        console.log('username 👉️', username);
+        console.log('username 👉️', email);
         console.log('password 👉️', password);
 
         setErrorMessage("need to implement login functionality");
@@ -34,15 +34,15 @@ export const Login = () => {
                 {/*username input*/}
                 <div className="divider">
                     <label className="login-form-label" htmlFor="username">
-                        Username
+                        Email
                     </label>
                     <input
-                        id="username"
-                        type="text"
-                        name="username"
+                        id="email"
+                        type="email"
+                        name="email"
                         placeholder="Username"
                         className="login-form-input"
-                        onChange={event => setUsername(event.target.value)}
+                        onChange={event => setEmail(event.target.value)}
                         required
                     />
                 </div>
@@ -66,7 +66,7 @@ export const Login = () => {
                 <div className="login-form-button-wrapper">
                     <button
 
-                        disabled={!username || !password}
+                        disabled={!email || !password}
                         className="login-form-button"
                         type="button"
                         onClick={handleSubmit}
@@ -79,7 +79,7 @@ export const Login = () => {
                 </div>
             </form>
             <div className="login-form-button-wrapper">
-                <button className="login-form-button" onClick={() => navigate("/home")}>Sign up</button>
+                <button className="login-form-button" onClick={() => navigate("/signup")}>Sign up</button>
             </div>
         </div>
     )
