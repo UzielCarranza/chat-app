@@ -67,20 +67,22 @@ export const Login = () => {
                     <button
 
                         disabled={!email || !password}
-                        className="login-form-button"
+                        className="login-form-button mt-4"
                         type="button"
                         onClick={handleSubmit}
                     >
                         Sign In
                     </button>
-                    <a className="login-form-links" href="#">
+                    <a className="login-form-links mt-8" onClick={() => navigate("/home")}>
                         Forgot Password?
                     </a>
                 </div>
+                <hr className="mt-4"/>
+                <p>Don't have an account yet?</p>
+                <button className="login-form-button mt-4" id="signup" onClick={() => navigate("/signup")}>Sign up
+                </button>
             </form>
-            <div className="login-form-button-wrapper">
-                <button className="login-form-button" onClick={() => navigate("/signup")}>Sign up</button>
-            </div>
+
         </div>
     )
 }
