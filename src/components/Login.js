@@ -19,6 +19,8 @@ export const Login = () => {
         // 👇️ access input values here
         console.log('username 👉️', username);
         console.log('password 👉️', password);
+
+        setErrorMessage("need to implement login functionality");
     };
 
     //let's you navigate to other pages programmatically
