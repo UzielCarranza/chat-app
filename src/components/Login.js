@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {useNavigate} from 'react-router-dom';
 
 export const Login = () => {
     //hooks
@@ -17,9 +18,8 @@ export const Login = () => {
         console.log('password 👉️', password);
     };
 
-    const handleSignUp = () => {
-        console.log("relocates user to on-boarding sign up page")
-    }
+    //let's you navigate to other pages programmatically
+    const navigate = useNavigate()
 
     return (
         <div className="form-wrapper">
@@ -56,18 +56,14 @@ export const Login = () => {
                 </div>
 
                 {/*buttons and other links*/}
-                <div className="divider">
-                    <button
-                        type="submit"
-                        id="login-btn"
-                    >
-                        Sign In
-                    </button>
-                </div>
                 <div className="login-form-button-wrapper">
                     <button
+
+                        disabled={!username || !password}
                         className="login-form-button"
-                        type="button">
+                        type="button"
+                        onClick={handleSubmit}
+                    >
                         Sign In
                     </button>
                     <a className="login-form-links" href="#">
@@ -76,7 +72,7 @@ export const Login = () => {
                 </div>
             </form>
             <div className="login-form-button-wrapper">
-                <button className="login-form-button" onClick={handleSignUp}>Sign up</button>
+                <button className="login-form-button" onClick={() => navigate("/home")}>Sign up</button>
             </div>
         </div>
     )
