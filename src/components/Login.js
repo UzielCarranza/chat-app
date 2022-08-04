@@ -8,6 +8,9 @@ export const Login = () => {
     //get and set password
     const [password, setPassword] = useState(null);
 
+    //when we make a request and if something goes wrong with handle submit function, we want to display an error message
+    const [errorMessage, setErrorMessage] = useState("");
+
     //fires up once the log in button gets click
     const handleSubmit = event => {
         //prevents the page from reloading
@@ -24,6 +27,8 @@ export const Login = () => {
     return (
         <div className="form-wrapper">
             <form className="login-form" onSubmit={handleSubmit}>
+                {/*fires up when there is an error with the log in process*/}
+                {errorMessage && <p className="error-message">{errorMessage}</p>}
                 {/*username input*/}
                 <div className="divider">
                     <label className="login-form-label" htmlFor="username">
