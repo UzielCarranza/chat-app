@@ -1,9 +1,9 @@
 import './styling/App.css';
 import {Login} from './components/Login';
-import {Routes, Route, Switch} from "react-router-dom";
-import {HomePage} from "./components/HomePage";
+import {Routes, Route} from "react-router-dom";
 import {SignUp} from "./components/SignUp";
 import {PrivateRoute} from "./auth/PrivateRoute";
+import {UserInformation} from "./components/UserInformation";
 
 function App() {
     return (
@@ -13,6 +13,8 @@ function App() {
                 <Route path="/login" element={<Login/>}/>
 
                 <Route path="/signup" element={<SignUp/>}/>
+
+                <Route path="/myInformation" element={<UserInformation/>}/>
 
             </Routes>
 
