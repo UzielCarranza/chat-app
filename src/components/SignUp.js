@@ -120,22 +120,22 @@ export const SignUp = () => {
                         required
                     />
                 </div>
-                <div>
+                <div className="flex flex-col">
                     {isPasswordGreaterThan8 ?
-                        <div className="flex justify-center"><AiFillCheckCircle style={{color: 'green'}}/><small>password
+                        <div className="flex justify-start"><AiFillCheckCircle style={{color: 'green'}}/><small>password
                             must be 8 characters or more</small></div> :
-                        <div className="flex justify-center"><MdDoNotTouch style={{color: 'red'}}/><small>password must
+                        <div className="flex justify-start"><MdDoNotTouch style={{color: 'red'}}/><small>password must
                             be 8
                             characters or more</small></div>}
                     {isUpperCase ?
-                        <div className="flex justify-center"><AiFillCheckCircle style={{color: 'green'}}/><small>Must
+                        <div className="flex justify-start mt-2"><AiFillCheckCircle style={{color: 'green'}}/><small>Must
                             contain an upper case letter</small></div> :
-                        <div className="flex justify-center"><MdDoNotTouch style={{color: 'red'}}/><small>Must contain
+                        <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>Must contain
                             an upper case letter</small></div>}
                     {isLowerCase ?
-                        <div className="flex justify-center"><AiFillCheckCircle style={{color: 'green'}}/><small>Must
+                        <div className="flex justify-start mt-2"><AiFillCheckCircle style={{color: 'green'}}/><small>Must
                             contain a lower case letter</small></div> :
-                        <div className="flex justify-center"><MdDoNotTouch style={{color: 'red'}}/><small>Must contain
+                        <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>Must contain
                             a lower case letter</small></div>}
                 </div>
                 {/*confirm password field*/}
