@@ -1,5 +1,7 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from 'react-router-dom';
+import {AiFillCheckCircle} from "react-icons/ai";
+import {MdDoNotTouch} from "react-icons/md";
 
 export const SignUp = () => {
     //hooks
@@ -17,6 +19,9 @@ export const SignUp = () => {
     //confirmation password
     const [confirmPasswordValue, setConfirmPasswordValue] = useState("");
 
+    //validation password
+    const [isPasswordGreaterThan8, setIsPasswordGreaterThan8] = useState(false);
+
     //fires up once the log in button gets click
     const handleSubmit = event => {
         //prevents the page from reloading
@@ -29,6 +34,20 @@ export const SignUp = () => {
 
         setErrorMessage("need to implement sign up functionality");
     };
+
+    //validation
+    useEffect(() => {
+        //check if password is not null
+        if (password !== null) {
+            //check for length of password
+            if (password.length >= 8) {
+                setIsPasswordGreaterThan8(true);
+                console.log(password)
+            } else {
+                setIsPasswordGreaterThan8(false)
+            }
+        }
+    }, [password])
 
     //let's you navigate to other pages programmatically
     const navigate = useNavigate()
@@ -58,7 +77,7 @@ export const SignUp = () => {
                         Email
                     </label>
                     <input
-                        id="username"
+                        id="email"
                         type="email"
                         name="email"
                         placeholder="email@email.com"
@@ -79,8 +98,12 @@ export const SignUp = () => {
                         placeholder="password"
                         className="login-form-input"
                         onChange={event => setPassword(event.target.value)}
+                        autoComplete="true"
                         required
                     />
+                </div>
+                <div>
+                    {isPasswordGreaterThan8 ? <div className="flex justify-center"><AiFillCheckCircle style={{color: 'green'}}/><small>password must be 8 characters or more</small></div> : <div className="flex justify-center"><MdDoNotTouch style={{color: 'red'}}/><small>password must be 8 characters or more</small></div>}
                 </div>
                 {/*confirm password field*/}
                 <label className="login-form-label mt-4">
@@ -88,21 +111,25 @@ export const SignUp = () => {
                 </label>
                 <input
                     value={confirmPasswordValue}
-                    type="password"
-                    name="password"
-                    placeholder="password"
+                    type="passwordConfirmation"
+                    name="passwordConfirmation"
+                    placeholder="passwordConfirmation"
                     className="login-form-input"
                     onChange={event => setConfirmPasswordValue(event.target.value)}
                     required
                 />
+                <div>
+
+                </div>
 
                 <button
                     disabled={!username || !password || password !== confirmPasswordValue}
-                    className="login-form-button mt-4"
+                    className="login-form-button mt-4 background-base"
                     onClick={handleSubmit}>
                     Sign up
                 </button>
-                <button className="login-form-button mt-4" onClick={() => navigate("/login")}> Already have an
+                <button className="login-form-button mt-4 background-base" onClick={() => navigate("/login")}> Already
+                    have an
                     account?
                 </button>
             </form>
