@@ -22,6 +22,7 @@ export const SignUp = () => {
     //validation password
     const [isPasswordGreaterThan8, setIsPasswordGreaterThan8] = useState(false);
     const [isUpperCase, setIsUpperCase] = useState(false);
+    const [isLowerCase, setIsLowerCase] = useState(false);
 
 
     //fires up once the log in button gets click
@@ -39,7 +40,10 @@ export const SignUp = () => {
 
     //validation
     useEffect(() => {
-            let upperCase = new RegExp("^(?=.*[A-Z])")
+            //regex that check for uppercase characters
+            let upperCase = new RegExp("^(?=.*[A-Z])");
+            //regex that check for lowercase characters
+            let lowerCase = new RegExp("^(?=.*[a-z])");
             if (password !== null) {
                 //check for password's length
                 if (password.length >= 8) {
@@ -52,6 +56,12 @@ export const SignUp = () => {
                     setIsUpperCase(true);
                 } else {
                     setIsUpperCase(false);
+                }
+                //check for lower case characters
+                if (lowerCase.test(password)) {
+                    setIsLowerCase(true);
+                } else {
+                    setIsLowerCase(false);
                 }
             }
         }, [password]
@@ -122,6 +132,11 @@ export const SignUp = () => {
                             contain an upper case letter</small></div> :
                         <div className="flex justify-center"><MdDoNotTouch style={{color: 'red'}}/><small>Must contain
                             an upper case letter</small></div>}
+                    {isLowerCase ?
+                        <div className="flex justify-center"><AiFillCheckCircle style={{color: 'green'}}/><small>Must
+                            contain a lower case letter</small></div> :
+                        <div className="flex justify-center"><MdDoNotTouch style={{color: 'red'}}/><small>Must contain
+                            a lower case letter</small></div>}
                 </div>
                 {/*confirm password field*/}
                 <label className="login-form-label mt-4">
