@@ -21,6 +21,8 @@ export const SignUp = () => {
 
     //validation password
     const [isPasswordGreaterThan8, setIsPasswordGreaterThan8] = useState(false);
+    const [isUpperCase, setIsUpperCase] = useState(false);
+
 
     //fires up once the log in button gets click
     const handleSubmit = event => {
@@ -37,19 +39,25 @@ export const SignUp = () => {
 
     //validation
     useEffect(() => {
-        //check if password is not null
-        if (password !== null) {
-            //check for length of password
-            if (password.length >= 8) {
-                setIsPasswordGreaterThan8(true);
-                console.log(password)
-            } else {
-                setIsPasswordGreaterThan8(false)
+            let upperCase = new RegExp("^(?=.*[A-Z])")
+            if (password !== null) {
+                //check for password's length
+                if (password.length >= 8) {
+                    setIsPasswordGreaterThan8(true)
+                } else {
+                    setIsPasswordGreaterThan8(false)
+                }
+                //check for uppercase characters
+                if (upperCase.test(password)) {
+                    setIsUpperCase(true);
+                } else {
+                    setIsUpperCase(false);
+                }
             }
-        }
-    }, [password])
+        }, [password]
+    )
 
-    //let's you navigate to other pages programmatically
+//let's you navigate to other pages programmatically
     const navigate = useNavigate()
 
     return (
@@ -103,7 +111,17 @@ export const SignUp = () => {
                     />
                 </div>
                 <div>
-                    {isPasswordGreaterThan8 ? <div className="flex justify-center"><AiFillCheckCircle style={{color: 'green'}}/><small>password must be 8 characters or more</small></div> : <div className="flex justify-center"><MdDoNotTouch style={{color: 'red'}}/><small>password must be 8 characters or more</small></div>}
+                    {isPasswordGreaterThan8 ?
+                        <div className="flex justify-center"><AiFillCheckCircle style={{color: 'green'}}/><small>password
+                            must be 8 characters or more</small></div> :
+                        <div className="flex justify-center"><MdDoNotTouch style={{color: 'red'}}/><small>password must
+                            be 8
+                            characters or more</small></div>}
+                    {isUpperCase ?
+                        <div className="flex justify-center"><AiFillCheckCircle style={{color: 'green'}}/><small>Must
+                            contain an upper case letter</small></div> :
+                        <div className="flex justify-center"><MdDoNotTouch style={{color: 'red'}}/><small>Must contain
+                            an upper case letter</small></div>}
                 </div>
                 {/*confirm password field*/}
                 <label className="login-form-label mt-4">
