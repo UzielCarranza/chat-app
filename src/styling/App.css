@@ -5,17 +5,22 @@
     @apply flex flex-col text-center items-center
 }
 
+.background-base{
+    background-color: #2F2FA2;
+}
+
 
 /*
 LOG IN COMPONENT
 */
 
 .form-wrapper {
+    border: 1rem solid #F64C72;;
     @apply w-full max-w-xs flex flex-col items-center justify-center m-20;
 }
 
 .login-form {
-    @apply bg-white shadow-md rounded px-12 pt-6 pb-12 mb-4
+    @apply h-auto bg-white shadow-md rounded px-12 pt-6 pb-12
 }
 
 .login-form-label {
@@ -32,7 +37,7 @@ LOG IN COMPONENT
 }
 
 .login-form-button {
-    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none
+    @apply  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none
 }
 
 .login-form-links {

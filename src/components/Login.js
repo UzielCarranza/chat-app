@@ -67,7 +67,7 @@ export const Login = () => {
                     <button
 
                         disabled={!email || !password}
-                        className="login-form-button mt-4"
+                        className="login-form-button mt-4 background-base"
                         type="button"
                         onClick={handleSubmit}
                     >
@@ -79,7 +79,7 @@ export const Login = () => {
                 </div>
                 <hr className="mt-4"/>
                 <p>Don't have an account yet?</p>
-                <button className="login-form-button mt-4" id="signup" onClick={() => navigate("/signup")}>Sign up
+                <button className="login-form-button mt-4 background-base" id="signup" onClick={() => navigate("/signup")}>Sign up
                 </button>
             </form>
 
