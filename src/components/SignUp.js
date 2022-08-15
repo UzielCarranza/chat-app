@@ -54,35 +54,21 @@ export const SignUp = () => {
             //regex that checks string to contain at least one special character
             let hasSpecialCharacters = new RegExp("^(?=.*[-+_!@#$%^&*., ?])");
             if (password !== null) {
+                //validation statements for password
                 //check for password's length
-                if (password.length >= 8) {
-                    setIsPasswordGreaterThan8(true)
-                } else {
-                    setIsPasswordGreaterThan8(false)
-                }
-                //check for uppercase characters
-                if (upperCase.test(password)) {
-                    setIsUpperCase(true);
-                } else {
-                    setIsUpperCase(false);
-                }
-                //check for lower case characters
-                if (lowerCase.test(password)) {
-                    setIsLowerCase(true);
-                } else {
-                    setIsLowerCase(false);
-                }
-                if (numericValues.test(password)) {
-                    setIsnumericValue(true);
-                } else {
-                    setIsnumericValue(false);
-                }
-                if (hasSpecialCharacters.test(password)) {
-                    setHasSpecialCharacters(true);
-                } else {
+                password.length >= 8 ? setIsPasswordGreaterThan8(true) : setIsPasswordGreaterThan8(false)
 
-                    setHasSpecialCharacters(false);
-                }
+                //check for uppercase characters
+                upperCase.test(password) ? setIsUpperCase(true) : setIsUpperCase(false)
+
+                //check for lower case characters
+                lowerCase.test(password) ? setIsLowerCase(true) : setIsLowerCase(false)
+
+                //check for numeric values
+                numericValues.test(password) ? setIsnumericValue(true) : setIsnumericValue(false)
+
+                //check for at least one special character
+                hasSpecialCharacters.test(password) ? setHasSpecialCharacters(true) : setHasSpecialCharacters(false)
             }
         }, [password]
     )
