@@ -144,16 +144,16 @@ export const SignUp = () => {
                 </label>
                 <input
                     value={confirmPasswordValue}
-                    type="passwordConfirmation"
+                    type="password"
                     name="passwordConfirmation"
                     placeholder="passwordConfirmation"
                     className="login-form-input"
                     onChange={event => setConfirmPasswordValue(event.target.value)}
                     required
                 />
-                <div>
-
-                </div>
+                {password === confirmPasswordValue ?
+                    <div className="flex justify-start mt-2"><AiFillCheckCircle style={{color: 'green'}}/><small>Password matches</small></div> :
+                    " "}
 
                 <button
                     disabled={!username || !password || password !== confirmPasswordValue}
