@@ -23,6 +23,7 @@ export const SignUp = () => {
     const [isPasswordGreaterThan8, setIsPasswordGreaterThan8] = useState(false);
     const [isUpperCase, setIsUpperCase] = useState(false);
     const [isLowerCase, setIsLowerCase] = useState(false);
+    const [isNumericValue, setIsnumericValue] = useState(false);
 
 
     //fires up once the log in button gets click
@@ -44,6 +45,8 @@ export const SignUp = () => {
             let upperCase = new RegExp("^(?=.*[A-Z])");
             //regex that check for lowercase characters
             let lowerCase = new RegExp("^(?=.*[a-z])");
+            //regex that checks for numeric values
+            let numericValues = new RegExp("^(?=.*\\d)");
             if (password !== null) {
                 //check for password's length
                 if (password.length >= 8) {
@@ -62,6 +65,11 @@ export const SignUp = () => {
                     setIsLowerCase(true);
                 } else {
                     setIsLowerCase(false);
+                }
+                if (numericValues.test(password)) {
+                    setIsnumericValue(true);
+                } else {
+                    setIsnumericValue(false)
                 }
             }
         }, [password]
@@ -130,13 +138,21 @@ export const SignUp = () => {
                     {isUpperCase ?
                         <div className="flex justify-start mt-2"><AiFillCheckCircle style={{color: 'green'}}/><small>Must
                             contain an upper case letter</small></div> :
-                        <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>Must contain
+                        <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>Must
+                            contain
                             an upper case letter</small></div>}
                     {isLowerCase ?
                         <div className="flex justify-start mt-2"><AiFillCheckCircle style={{color: 'green'}}/><small>Must
                             contain a lower case letter</small></div> :
-                        <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>Must contain
+                        <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>Must
+                            contain
                             a lower case letter</small></div>}
+                    {isNumericValue ?
+                        <div className="flex justify-start mt-2"><AiFillCheckCircle style={{color: 'green'}}/><small>Must
+                            contain a numeric value</small></div> :
+                        <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>
+                            Must
+                            contain a numeric value</small></div>}
                 </div>
                 {/*confirm password field*/}
                 <label className="login-form-label mt-4">
@@ -153,7 +169,8 @@ export const SignUp = () => {
                     required
                 />
                 {password === confirmPasswordValue && password.length >= 8 ?
-                    <div className="flex justify-start mt-2"><AiFillCheckCircle style={{color: 'green'}}/><small>Password matches</small></div> :
+                    <div className="flex justify-start mt-2"><AiFillCheckCircle style={{color: 'green'}}/><small>Password
+                        matches</small></div> :
                     " "}
 
                 <button
