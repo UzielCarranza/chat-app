@@ -151,7 +151,7 @@ export const SignUp = () => {
                     onChange={event => setConfirmPasswordValue(event.target.value)}
                     required
                 />
-                {password === confirmPasswordValue ?
+                {password === confirmPasswordValue && password.length >= 8 ?
                     <div className="flex justify-start mt-2"><AiFillCheckCircle style={{color: 'green'}}/><small>Password matches</small></div> :
                     " "}
 
