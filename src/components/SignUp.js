@@ -26,6 +26,9 @@ export const SignUp = () => {
     const [isNumericValue, setIsnumericValue] = useState(false);
     const [hasSpecialCharacters, setHasSpecialCharacters] = useState(false);
 
+    //show validation messages on UI
+    const [showValidation, setShowValidation] = useState(false);
+
 
     //fires up once the log in button gets click
     const handleSubmit = event => {
@@ -90,13 +93,11 @@ export const SignUp = () => {
     return (
         <div className="form-wrapper">
             <form className="login-form" onSubmit={handleSubmit}>
+                <h3>Create your account </h3>
                 {/*fires up when there is an error with the log in process*/}
                 {errorMessage && <p className="error-message">{errorMessage}</p>}
                 {/*username input*/}
                 <div className="divider">
-                    <label className="login-form-label" htmlFor="username">
-                        Username
-                    </label>
                     <input
                         id="username"
                         type="text"
@@ -108,14 +109,11 @@ export const SignUp = () => {
                     />
                 </div>
                 <div className="divider">
-                    <label className="login-form-label" htmlFor="email">
-                        Email
-                    </label>
                     <input
                         id="email"
                         type="email"
                         name="email"
-                        placeholder="email@email.com"
+                        placeholder="email address"
                         className="login-form-input"
                         onChange={event => setEmail(event.target.value)}
                         required
@@ -123,9 +121,6 @@ export const SignUp = () => {
                 </div>
                 {/*password input*/}
                 <div className="divider">
-                    <label className="login-form-label" htmlFor="password">
-                        Password
-                    </label>
                     <input
                         id="password"
                         type="password"
@@ -133,56 +128,62 @@ export const SignUp = () => {
                         placeholder="password"
                         className="login-form-input"
                         onChange={event => setPassword(event.target.value)}
+                        onClick={() => setShowValidation(true)}
                         autoComplete="true"
                         required
                     />
                 </div>
-                <div className="flex flex-col">
-                    {isPasswordGreaterThan8 ?
-                        <div className="flex justify-start"><AiFillCheckCircle style={{color: 'green'}}/><small>password
-                            must be 8 characters or more</small></div> :
-                        <div className="flex justify-start"><MdDoNotTouch style={{color: 'red'}}/><small>password must
-                            be 8
-                            characters or more</small></div>}
-                    {isUpperCase ?
-                        <div className="flex justify-start mt-2"><AiFillCheckCircle style={{color: 'green'}}/><small>Must
-                            contain an upper case letter</small></div> :
-                        <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>Must
-                            contain
-                            an upper case letter</small></div>}
-                    {isLowerCase ?
-                        <div className="flex justify-start mt-2"><AiFillCheckCircle style={{color: 'green'}}/><small>Must
-                            contain a lower case letter</small></div> :
-                        <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>Must
-                            contain
-                            a lower case letter</small></div>}
-                    {isNumericValue ?
-                        <div className="flex justify-start mt-2"><AiFillCheckCircle style={{color: 'green'}}/><small>Must
-                            contain a numeric value</small></div> :
-                        <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>
-                            Must
-                            contain a numeric value</small></div>}
-                    {hasSpecialCharacters ?
-                        <div className="flex justify-start mt-2"><AiFillCheckCircle style={{color: 'green'}}/><small>Must
-                            contain at least one special character</small></div> :
-                        <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>
-                            Must
-                            contain at least one special character</small></div>}
-                </div>
+                {showValidation &&
+                    <div id="data-validation" className="flex flex-col">
+                        {isPasswordGreaterThan8 ?
+                            <div className="flex justify-start"><AiFillCheckCircle style={{color: 'green'}}/><small>password
+                                must be 8 characters or more</small></div> :
+                            <div className="flex justify-start"><MdDoNotTouch style={{color: 'red'}}/><small>password
+                                must
+                                be 8
+                                characters or more</small></div>}
+                        {isUpperCase ?
+                            <div className="flex justify-start mt-2"><AiFillCheckCircle
+                                style={{color: 'green'}}/><small>Must
+                                contain an upper case letter</small></div> :
+                            <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>Must
+                                contain
+                                an upper case letter</small></div>}
+                        {isLowerCase ?
+                            <div className="flex justify-start mt-2"><AiFillCheckCircle
+                                style={{color: 'green'}}/><small>Must
+                                contain a lower case letter</small></div> :
+                            <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>Must
+                                contain
+                                a lower case letter</small></div>}
+                        {isNumericValue ?
+                            <div className="flex justify-start mt-2"><AiFillCheckCircle
+                                style={{color: 'green'}}/><small>Must
+                                contain a numeric value</small></div> :
+                            <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>
+                                Must
+                                contain a numeric value</small></div>}
+                        {hasSpecialCharacters ?
+                            <div className="flex justify-start mt-2"><AiFillCheckCircle
+                                style={{color: 'green'}}/><small>Must
+                                contain at least one special character</small></div> :
+                            <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>
+                                Must
+                                contain at least one special character</small></div>}
+                    </div>
+                }
                 {/*confirm password field*/}
-                <label className="login-form-label mt-4">
-                    Confirm Password
-                </label>
-                <input
-                    value={confirmPasswordValue}
-                    type="password"
-                    name="passwordConfirmation"
-                    placeholder="passwordConfirmation"
-                    className="login-form-input"
-                    onChange={event => setConfirmPasswordValue(event.target.value)}
-                    autoComplete="on"
-                    required
-                />
+                <div className="divider">
+                    <input
+                        type="password"
+                        name="passwordConfirmation"
+                        placeholder="confirm password"
+                        className="login-form-input"
+                        onChange={event => setConfirmPasswordValue(event.target.value)}
+                        autoComplete="on"
+                        required
+                    />
+                </div>
                 {password === confirmPasswordValue && password.length >= 8 ?
                     <div className="flex justify-start mt-2"><AiFillCheckCircle style={{color: 'green'}}/><small>Password
                         matches</small></div> :

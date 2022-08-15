@@ -15,7 +15,6 @@ LOG IN COMPONENT
 */
 
 .form-wrapper {
-    border: 1rem solid #F64C72;;
     @apply w-full max-w-xs flex flex-col items-center justify-center m-20;
 }
 
