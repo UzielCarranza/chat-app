@@ -24,6 +24,7 @@ export const SignUp = () => {
     const [isUpperCase, setIsUpperCase] = useState(false);
     const [isLowerCase, setIsLowerCase] = useState(false);
     const [isNumericValue, setIsnumericValue] = useState(false);
+    const [hasSpecialCharacters, setHasSpecialCharacters] = useState(false);
 
 
     //fires up once the log in button gets click
@@ -47,6 +48,8 @@ export const SignUp = () => {
             let lowerCase = new RegExp("^(?=.*[a-z])");
             //regex that checks for numeric values
             let numericValues = new RegExp("^(?=.*\\d)");
+            //regex that checks string to contain at least one special character
+            let hasSpecialCharacters = new RegExp("^(?=.*[-+_!@#$%^&*., ?])");
             if (password !== null) {
                 //check for password's length
                 if (password.length >= 8) {
@@ -69,7 +72,13 @@ export const SignUp = () => {
                 if (numericValues.test(password)) {
                     setIsnumericValue(true);
                 } else {
-                    setIsnumericValue(false)
+                    setIsnumericValue(false);
+                }
+                if (hasSpecialCharacters.test(password)) {
+                    setHasSpecialCharacters(true);
+                } else {
+
+                    setHasSpecialCharacters(false);
                 }
             }
         }, [password]
@@ -153,6 +162,12 @@ export const SignUp = () => {
                         <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>
                             Must
                             contain a numeric value</small></div>}
+                    {hasSpecialCharacters ?
+                        <div className="flex justify-start mt-2"><AiFillCheckCircle style={{color: 'green'}}/><small>Must
+                            contain at least one special character</small></div> :
+                        <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>
+                            Must
+                            contain at least one special character</small></div>}
                 </div>
                 {/*confirm password field*/}
                 <label className="login-form-label mt-4">
