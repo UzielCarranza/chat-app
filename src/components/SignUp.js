@@ -149,6 +149,7 @@ export const SignUp = () => {
                     placeholder="passwordConfirmation"
                     className="login-form-input"
                     onChange={event => setConfirmPasswordValue(event.target.value)}
+                    autoComplete="on"
                     required
                 />
                 {password === confirmPasswordValue && password.length >= 8 ?
