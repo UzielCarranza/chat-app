@@ -175,7 +175,7 @@ export const SignUp = () => {
                     />
                 </div>
                 {/*password input*/}
-                <div className="divider flex flex-row items-center">
+                <div className="divider flex flex-row items-center w-full">
                     <input
                         id="password"
                         type={showPassword ? "text" : "password"}
