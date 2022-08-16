@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import {AiFillCheckCircle} from "react-icons/ai";
 import {MdDoNotTouch} from "react-icons/md";
+import axios from 'axios';
 
 export const SignUp = () => {
     //hooks
@@ -31,17 +32,30 @@ export const SignUp = () => {
     const [showValidation, setShowValidation] = useState(false);
 
 
-    //fires up once the log in button gets click
+    //fires up once the sing up button gets click
     const handleSubmit = event => {
         //prevents the page from reloading
-        event.preventDefault(); // 👈️ prevent page refresh
+        event.preventDefault();
 
-        // 👇️ access input values here
-        console.log('username 👉️', username);
-        console.log('password 👉️', password);
-        console.log('password 👉️', email);
+        const newUser = {
+            "id": 0,
+            "username": username,
+            "email": email,
+            "password": password,
+            "createdAt": "2022-08-16T21:10:16.433Z",
+            "role": "USER"
+        }
 
-        setErrorMessage("need to implement sign up functionality");
+        if (passwordMeetsAllRequirements) {
+            axios.post(` http://localhost:8080/api/users/create`, {newUser})
+                .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                })
+                .catch(error =>
+                {setErrorMessage(`There was an unexpected error ${error}`)
+                    console.log(errorMessage)})
+        }
     };
 
     //validation
