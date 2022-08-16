@@ -25,6 +25,7 @@ export const SignUp = () => {
     const [isLowerCase, setIsLowerCase] = useState(false);
     const [isNumericValue, setIsnumericValue] = useState(false);
     const [hasSpecialCharacters, setHasSpecialCharacters] = useState(false);
+    const [passwordMeetsAllRequirements, setPasswordMeetsAllRequirements] = useState(false);
 
     //show validation messages on UI
     const [showValidation, setShowValidation] = useState(false);
@@ -69,6 +70,13 @@ export const SignUp = () => {
 
                 //check for at least one special character
                 hasSpecialCharacters.test(password) ? setHasSpecialCharacters(true) : setHasSpecialCharacters(false)
+
+                //final statement that checks if the statements from above are true to set a final variable to true
+                if (password.length >= 8 && upperCase.test(password) && lowerCase.test(password) && numericValues.test(password) && hasSpecialCharacters.test(password)) {
+                    setPasswordMeetsAllRequirements(true);
+                } else {
+                    setPasswordMeetsAllRequirements(false);
+                }
             }
         }, [password]
     )
@@ -181,7 +189,7 @@ export const SignUp = () => {
                     " "}
 
                 <button
-                    disabled={!username || !password || password !== confirmPasswordValue}
+                    disabled={!username || !password || password !== confirmPasswordValue || passwordMeetsAllRequirements !== true}
                     className="login-form-button mt-4 background-base"
                     onClick={handleSubmit}>
                     Sign up
