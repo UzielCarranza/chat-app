@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import {AiFillCheckCircle} from "react-icons/ai";
 import {MdDoNotTouch} from "react-icons/md";
 import axios from 'axios';
+import {RiEyeCloseLine, RiEyeLine} from "react-icons/ri";
 
 export const SignUp = () => {
     //hooks
@@ -31,6 +32,9 @@ export const SignUp = () => {
     //show validation messages on UI
     const [showValidation, setShowValidation] = useState(false);
 
+    //Allows the user to cover and uncovered the password
+    const [showPassword, setShowPassword] = useState(false);
+
 
     //fires up once the sing up button gets click
     const handleSubmit = event => {
@@ -52,9 +56,10 @@ export const SignUp = () => {
                     console.log(res);
                     console.log(res.data);
                 })
-                .catch(error =>
-                {setErrorMessage(`There was an unexpected error ${error}`)
-                    console.log(errorMessage)})
+                .catch(error => {
+                    setErrorMessage(`There was an unexpected error ${error}`)
+                    console.log(errorMessage)
+                })
         }
     };
 
@@ -170,10 +175,10 @@ export const SignUp = () => {
                     />
                 </div>
                 {/*password input*/}
-                <div className="divider">
+                <div className="divider flex flex-row items-center">
                     <input
                         id="password"
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         name="password"
                         placeholder="password"
                         className="login-form-input"
@@ -182,6 +187,10 @@ export const SignUp = () => {
                         autoComplete="true"
                         required
                     />
+                    <div className="ml-4">
+                        {showPassword ? <RiEyeLine onClick={() => setShowPassword(!showPassword)}/> :
+                            <RiEyeCloseLine onClick={() => setShowPassword(!showPassword)}/>}
+                    </div>
                 </div>
                 {dataValidation()}
 
