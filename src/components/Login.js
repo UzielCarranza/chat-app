@@ -57,6 +57,7 @@ export const Login = () => {
                         name="password"
                         placeholder="password"
                         className="login-form-input"
+                        autoComplete="on"
                         onChange={event => setPassword(event.target.value)}
                         required
                     />
