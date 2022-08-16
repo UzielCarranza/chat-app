@@ -34,6 +34,7 @@ export const SignUp = () => {
 
     //Allows the user to cover and uncovered the password
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
 
     //fires up once the sing up button gets click
@@ -195,9 +196,9 @@ export const SignUp = () => {
                 {dataValidation()}
 
                 {/*confirm password field*/}
-                <div className="divider">
+                <div className="divider flex flex-row items-center w-full">
                     <input
-                        type="password"
+                        type={showConfirmPassword ? "text" : "password"}
                         name="passwordConfirmation"
                         placeholder="confirm password"
                         className="login-form-input"
@@ -205,6 +206,10 @@ export const SignUp = () => {
                         autoComplete="on"
                         required
                     />
+                    <div className="ml-4">
+                        {showConfirmPassword ? <RiEyeLine onClick={() => setShowConfirmPassword(!showConfirmPassword)}/> :
+                            <RiEyeCloseLine onClick={() => setShowConfirmPassword(!showConfirmPassword)}/>}
+                    </div>
                 </div>
                 {password === confirmPasswordValue && password.length >= 8 ?
                     <div className="flex justify-start mt-2"><AiFillCheckCircle style={{color: 'green'}}/><small>Password
