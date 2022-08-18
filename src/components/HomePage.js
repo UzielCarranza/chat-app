@@ -1,7 +1,15 @@
+import {SplitScreen} from "../utils/SplitScreen";
+import {LeftHandComponent} from "../utils/LeftHandComponent";
+import {RightHandComponent} from "../utils/RightHandComponent";
+
 export const HomePage = props => {
     return (
-        <div className="home-page">
-            <h1>Welcome to the home page</h1>
-        </div>
+        <SplitScreen
+            left={LeftHandComponent}
+            right={RightHandComponent}
+        >
+            <LeftHandComponent name="Left component"/>
+            <RightHandComponent message="right component"/>
+        </SplitScreen>
     );
 }
