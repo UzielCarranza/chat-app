@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import {AiFillCheckCircle} from "react-icons/ai";
-import {MdDoNotTouch} from "react-icons/md";
 import axios from 'axios';
 import {RiEyeCloseLine, RiEyeLine} from "react-icons/ri";
+import {dataValidation} from "./validation";
 
 export const SignUp = () => {
     //hooks
@@ -101,48 +101,6 @@ export const SignUp = () => {
         }, [password]
     )
 
-    const dataValidation = () => {
-        return showValidation &&
-            <div id="data-validation" className="flex flex-col">
-                {isPasswordGreaterThan8 ?
-                    <div className="flex justify-start"><AiFillCheckCircle style={{color: 'green'}}/><small>password
-                        must be 8 characters or more</small></div> :
-                    <div className="flex justify-start"><MdDoNotTouch style={{color: 'red'}}/><small>password
-                        must
-                        be 8
-                        characters or more</small></div>}
-                {isUpperCase ?
-                    <div className="flex justify-start mt-2"><AiFillCheckCircle
-                        style={{color: 'green'}}/><small>Must
-                        contain an upper case letter</small></div> :
-                    <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>Must
-                        contain
-                        an upper case letter</small></div>}
-                {isLowerCase ?
-                    <div className="flex justify-start mt-2"><AiFillCheckCircle
-                        style={{color: 'green'}}/><small>Must
-                        contain a lower case letter</small></div> :
-                    <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>Must
-                        contain
-                        a lower case letter</small></div>}
-                {isNumericValue ?
-                    <div className="flex justify-start mt-2"><AiFillCheckCircle
-                        style={{color: 'green'}}/><small>Must
-                        contain a numeric value</small></div> :
-                    <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>
-                        Must
-                        contain a numeric value</small></div>}
-                {hasSpecialCharacters ?
-                    <div className="flex justify-start mt-2"><AiFillCheckCircle
-                        style={{color: 'green'}}/><small>Must
-                        contain at least one special character</small></div> :
-                    <div className="flex justify-start mt-2"><MdDoNotTouch style={{color: 'red'}}/><small>
-                        Must
-                        contain at least one special character</small></div>}
-            </div>
-
-    }
-
 //let's you navigate to other pages programmatically
     const navigate = useNavigate()
 
@@ -193,7 +151,7 @@ export const SignUp = () => {
                             <RiEyeCloseLine onClick={() => setShowPassword(!showPassword)}/>}
                     </div>
                 </div>
-                {dataValidation()}
+                {dataValidation(showValidation, isPasswordGreaterThan8, isUpperCase, isLowerCase, isNumericValue, hasSpecialCharacters)}
 
                 {/*confirm password field*/}
                 <div className="divider flex flex-row items-center w-full">
