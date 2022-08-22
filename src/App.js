@@ -1,7 +1,7 @@
 import './styling/App.css';
 import {Login} from './components/Login';
 import {Routes, Route} from "react-router-dom";
-import {SignUp} from "./components/SignUp";
+import {SignUp} from "./components/signup/SignUp";
 import {PrivateRoute} from "./auth/PrivateRoute";
 import {UserInformation} from "./components/UserInformation";
 
