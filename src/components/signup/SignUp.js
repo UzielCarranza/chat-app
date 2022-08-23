@@ -149,7 +149,6 @@ const useValidationEffect = (password) => {
             {passwordMeetsAllRequirements: false}
         ]
     })
-    const [dataValidated, setDataValidated] = useState(null);
     //regex that check for uppercase characters
     let upperCase = new RegExp("^(?=.*[A-Z])");
     //regex that check for lowercase characters
@@ -164,12 +163,17 @@ const useValidationEffect = (password) => {
                 //validation statements for password
                 //check for password's length
                 // password.length >= 8 ? validation.IsPasswordGreaterThan8 = true : validation.IsPasswordGreaterThan8 = false
-                //
+
+                if (password.length >= 8) {
+                    setValidation({...validation, isPasswordGreaterThan8: validation.isPasswordGreaterThan8 = true})
+                } else {
+
+                    setValidation({...validation, isPasswordGreaterThan8: validation.isPasswordGreaterThan8 = false})
+                }
                 // //check for uppercase characters
                 // upperCase.test(password) ? validation.isUpperCase = true : validation.isUpperCase = false
 
                 //check for lower case characters
-                // lowerCase.test(password) ? validation.isLowerCase = true : validation.isLowerCase = false
                 if (lowerCase.test(password)) {
                     setValidation({...validation, isLowerCase: validation.isLowerCase = true})
                 } else {
@@ -186,8 +190,12 @@ const useValidationEffect = (password) => {
                 }
 
                 // //check for at least one special character
-                // hasSpecialCharacters.test(password) ? validation.hasSpecialCharacters = true : validation.hasSpecialCharacters = false
-                //
+                if (hasSpecialCharacters.test(password)) {
+                    setValidation({...validation, hasSpecialCharacters: validation.hasSpecialCharacters = true})
+                } else {
+
+                    setValidation({...validation, hasSpecialCharacters: validation.hasSpecialCharacters = false})
+                }
                 // //final statement that checks if the statements from above are true to set a final variable to true
                 // if (password.length >= 8 && upperCase.test(password) && lowerCase.test(password) && numericValues.test(password) && hasSpecialCharacters.test(password)) {
                 //     validation.passwordMeetsAllRequirements = true;
