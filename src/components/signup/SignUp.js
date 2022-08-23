@@ -17,17 +17,11 @@ export const SignUp = () => {
     //when we make a request and if something goes wrong with handle submit function, we want to display an error message
     const [errorMessage, setErrorMessage] = useState("");
 
+    let validate = useValidationEffect(password);
 
     //confirmation password
     const [confirmPasswordValue, setConfirmPasswordValue] = useState("");
 
-    //validation password
-    const [isPasswordGreaterThan8, setIsPasswordGreaterThan8] = useState(false);
-    const [isUpperCase, setIsUpperCase] = useState(false);
-    const [isLowerCase, setIsLowerCase] = useState(false);
-    const [isNumericValue, setIsnumericValue] = useState(false);
-    const [hasSpecialCharacters, setHasSpecialCharacters] = useState(false);
-    const [passwordMeetsAllRequirements, setPasswordMeetsAllRequirements] = useState(false);
 
     //show validation messages on UI
     const [showValidation, setShowValidation] = useState(false);
@@ -51,55 +45,8 @@ export const SignUp = () => {
             "role": "USER"
         }
 
-        if (passwordMeetsAllRequirements) {
-            axios.post(` http://localhost:8080/api/users/create`, {newUser})
-                .then(res => {
-                    console.log(res);
-                    console.log(res.data);
-                })
-                .catch(error => {
-                    setErrorMessage(`There was an unexpected error ${error}`)
-                    console.log(errorMessage)
-                })
-        }
     };
 
-    //validation
-    useEffect(() => {
-            //regex that check for uppercase characters
-            let upperCase = new RegExp("^(?=.*[A-Z])");
-            //regex that check for lowercase characters
-            let lowerCase = new RegExp("^(?=.*[a-z])");
-            //regex that checks for numeric values
-            let numericValues = new RegExp("^(?=.*\\d)");
-            //regex that checks string to contain at least one special character
-            let hasSpecialCharacters = new RegExp("^(?=.*[-+_!@#$%^&*., ?])");
-            if (password !== null) {
-                //validation statements for password
-                //check for password's length
-                password.length >= 8 ? setIsPasswordGreaterThan8(true) : setIsPasswordGreaterThan8(false)
-
-                //check for uppercase characters
-                upperCase.test(password) ? setIsUpperCase(true) : setIsUpperCase(false)
-
-                //check for lower case characters
-                lowerCase.test(password) ? setIsLowerCase(true) : setIsLowerCase(false)
-
-                //check for numeric values
-                numericValues.test(password) ? setIsnumericValue(true) : setIsnumericValue(false)
-
-                //check for at least one special character
-                hasSpecialCharacters.test(password) ? setHasSpecialCharacters(true) : setHasSpecialCharacters(false)
-
-                //final statement that checks if the statements from above are true to set a final variable to true
-                if (password.length >= 8 && upperCase.test(password) && lowerCase.test(password) && numericValues.test(password) && hasSpecialCharacters.test(password)) {
-                    setPasswordMeetsAllRequirements(true);
-                } else {
-                    setPasswordMeetsAllRequirements(false);
-                }
-            }
-        }, [password]
-    )
 
 //let's you navigate to other pages programmatically
     const navigate = useNavigate()
@@ -151,7 +98,7 @@ export const SignUp = () => {
                             <RiEyeCloseLine onClick={() => setShowPassword(!showPassword)}/>}
                     </div>
                 </div>
-                {dataValidation(showValidation, isPasswordGreaterThan8, isUpperCase, isLowerCase, isNumericValue, hasSpecialCharacters)}
+                {dataValidation(showValidation, validate.isPasswordGreaterThan8, validate.isUpperCase, validate.isLowerCase, validate.isNumericValue, validate.hasSpecialCharacters)}
 
                 {/*confirm password field*/}
                 <div className="divider flex flex-row items-center w-full">
@@ -165,7 +112,8 @@ export const SignUp = () => {
                         required
                     />
                     <div className="ml-4">
-                        {showConfirmPassword ? <RiEyeLine onClick={() => setShowConfirmPassword(!showConfirmPassword)}/> :
+                        {showConfirmPassword ?
+                            <RiEyeLine onClick={() => setShowConfirmPassword(!showConfirmPassword)}/> :
                             <RiEyeCloseLine onClick={() => setShowConfirmPassword(!showConfirmPassword)}/>}
                     </div>
                 </div>
@@ -175,7 +123,7 @@ export const SignUp = () => {
                     " "}
 
                 <button
-                    disabled={!username || !password || password !== confirmPasswordValue || passwordMeetsAllRequirements !== true}
+                    disabled={!username || !password || password !== confirmPasswordValue || useValidationEffect.passwordMeetsAllRequirements !== true}
                     className="login-form-button mt-4 background-base"
                     onClick={handleSubmit}>
                     Sign up
@@ -187,4 +135,67 @@ export const SignUp = () => {
             </form>
         </div>
     )
+}
+
+
+const useValidationEffect = (password) => {
+    const [validation, setValidation] = useState({
+        validation: [
+            {isPasswordGreaterThan8: false},
+            {isUpperCase: false},
+            {isLowerCase: false},
+            {isNumericValue: false},
+            {hasSpecialCharacters: false},
+            {passwordMeetsAllRequirements: false}
+        ]
+    })
+    const [dataValidated, setDataValidated] = useState(null);
+    //regex that check for uppercase characters
+    let upperCase = new RegExp("^(?=.*[A-Z])");
+    //regex that check for lowercase characters
+    let lowerCase = new RegExp("^(?=.*[a-z])");
+    //regex that checks for numeric values
+    let numericValues = new RegExp("^(?=.*\\d)");
+    //regex that checks string to contain at least one special character
+    let hasSpecialCharacters = new RegExp("^(?=.*[-+_!@#$%^&*., ?])");
+    //validation
+    useEffect(() => {
+            if (password !== null) {
+                //validation statements for password
+                //check for password's length
+                // password.length >= 8 ? validation.IsPasswordGreaterThan8 = true : validation.IsPasswordGreaterThan8 = false
+                //
+                // //check for uppercase characters
+                // upperCase.test(password) ? validation.isUpperCase = true : validation.isUpperCase = false
+
+                //check for lower case characters
+                // lowerCase.test(password) ? validation.isLowerCase = true : validation.isLowerCase = false
+                if (lowerCase.test(password)) {
+                    setValidation({...validation, isLowerCase: validation.isLowerCase = true})
+                } else {
+
+                    setValidation({...validation, isLowerCase: validation.isLowerCase = false})
+                }
+
+                //check for numeric values
+                if (numericValues.test(password)) {
+                    setValidation({...validation, isNumericValue: validation.isNumericValue = true})
+                } else {
+
+                    setValidation({...validation, isNumericValue: validation.isNumericValue = false})
+                }
+
+                // //check for at least one special character
+                // hasSpecialCharacters.test(password) ? validation.hasSpecialCharacters = true : validation.hasSpecialCharacters = false
+                //
+                // //final statement that checks if the statements from above are true to set a final variable to true
+                // if (password.length >= 8 && upperCase.test(password) && lowerCase.test(password) && numericValues.test(password) && hasSpecialCharacters.test(password)) {
+                //     validation.passwordMeetsAllRequirements = true;
+                // } else {
+                //     validation.passwordMeetsAllRequirements = false;
+                // }
+            }
+        }, [password]
+    )
+    return validation;
 }
