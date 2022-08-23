@@ -172,7 +172,12 @@ const useValidationEffect = (password) => {
                 }
                 // //check for uppercase characters
                 // upperCase.test(password) ? validation.isUpperCase = true : validation.isUpperCase = false
+                if (upperCase.test(password)) {
+                    setValidation({...validation, isUpperCase: validation.isUpperCase = true})
+                } else {
 
+                    setValidation({...validation, isUpperCase: validation.isUpperCase = false})
+                }
                 //check for lower case characters
                 if (lowerCase.test(password)) {
                     setValidation({...validation, isLowerCase: validation.isLowerCase = true})
@@ -197,11 +202,18 @@ const useValidationEffect = (password) => {
                     setValidation({...validation, hasSpecialCharacters: validation.hasSpecialCharacters = false})
                 }
                 // //final statement that checks if the statements from above are true to set a final variable to true
-                // if (password.length >= 8 && upperCase.test(password) && lowerCase.test(password) && numericValues.test(password) && hasSpecialCharacters.test(password)) {
-                //     validation.passwordMeetsAllRequirements = true;
-                // } else {
-                //     validation.passwordMeetsAllRequirements = false;
-                // }
+                if (password.length >= 8 && upperCase.test(password) && lowerCase.test(password) && numericValues.test(password) && hasSpecialCharacters.test(password)) {
+                    setValidation({
+                        ...validation,
+                        passwordMeetsAllRequirements: validation.passwordMeetsAllRequirements = true
+                    })
+
+                } else {
+                    setValidation({
+                        ...validation,
+                        passwordMeetsAllRequirements: validation.passwordMeetsAllRequirements = false
+                    })
+                }
             }
         }, [password]
     )
