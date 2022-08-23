@@ -123,12 +123,21 @@ export const SignUp = () => {
                         matches</small></div> :
                     " "}
 
+                {
+                    !username || !password || password !== confirmPasswordValue || passWordRequirements.passwordMeetsAllRequirements !== true ?
                 <button
-                    disabled={!username || !password || password !== confirmPasswordValue || useValidationEffect.passwordMeetsAllRequirements !== true}
-                    className="login-form-button mt-4 background-base"
-                    onClick={handleSubmit}>
-                    Sign up
+                    className="login-form-button mt-4 background-base disabled-btn"
+                    disabled={true}
+                    >
+                    disabled
                 </button>
+                    :
+                    <button
+                        className="login-form-button mt-4 background-base cursor-pointer"
+                        onClick={handleSubmit}>
+                        Sign up
+                    </button>
+                }
                 <button className="login-form-button mt-4 background-base" onClick={() => navigate("/login")}> Already
                     have an
                     account?
