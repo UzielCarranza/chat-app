@@ -1,9 +1,8 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import {AiFillCheckCircle} from "react-icons/ai";
-import axios from 'axios';
 import {RiEyeCloseLine, RiEyeLine} from "react-icons/ri";
-import {dataValidation} from "./validation";
+import {showDataOnPasswordValidation} from "./showDataOnPasswordValidation";
 import {useValidationEffect} from "./useValidationEffect";
 
 export const SignUp = () => {
@@ -18,7 +17,8 @@ export const SignUp = () => {
     //when we make a request and if something goes wrong with handle submit function, we want to display an error message
     const [errorMessage, setErrorMessage] = useState("");
 
-    let validate = useValidationEffect(password);
+    //use a custom hook to received that password validation of password requirements
+    const passWordRequirements = useValidationEffect(password);
 
     //confirmation password
     const [confirmPasswordValue, setConfirmPasswordValue] = useState("");
@@ -99,7 +99,7 @@ export const SignUp = () => {
                             <RiEyeCloseLine onClick={() => setShowPassword(!showPassword)}/>}
                     </div>
                 </div>
-                {dataValidation(showValidation, validate.isPasswordGreaterThan8, validate.isUpperCase, validate.isLowerCase, validate.isNumericValue, validate.hasSpecialCharacters)}
+                {showDataOnPasswordValidation(showValidation, passWordRequirements)}
 
                 {/*confirm password field*/}
                 <div className="divider flex flex-row items-center w-full">
