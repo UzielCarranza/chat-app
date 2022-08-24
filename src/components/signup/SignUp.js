@@ -124,19 +124,26 @@ export const SignUp = () => {
                     " "}
 
                 {
-                    !username || !password || password !== confirmPasswordValue || passWordRequirements.passwordMeetsAllRequirements !== true ?
-                <button
-                    className="login-form-button mt-4 background-base disabled-btn"
-                    disabled={true}
-                    >
-                    disabled
-                </button>
-                    :
-                    <button
-                        className="login-form-button mt-4 background-base cursor-pointer"
-                        onClick={handleSubmit}>
-                        Sign up
-                    </button>
+                    !username || !email || !password || password !== confirmPasswordValue || passWordRequirements.passwordMeetsAllRequirements !== true ?
+                            <button
+                                className="login-form-button mt-4 background-base disabled-btn"
+                                disabled={true}
+                                title={
+                                `This button is disabled because: 
+${!username ? "the username field is empty" : ""}
+${!email ? "the email field is empty" : ""}
+${!password ? "the password field is empty" : ""}
+${password !== confirmPasswordValue ? "Confirmation password doesn't matched" : ""}
+${passWordRequirements.passwordMeetsAllRequirements !== true ? "The password provided doesn't fulfill all the requirements" : ""} `}
+                            >
+                                disabled
+                            </button>
+                        :
+                        <button
+                            className="login-form-button mt-4 background-base cursor-pointer"
+                            onClick={handleSubmit}>
+                            Sign up
+                        </button>
                 }
                 <button className="login-form-button mt-4 background-base" onClick={() => navigate("/login")}> Already
                     have an
