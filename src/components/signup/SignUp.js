@@ -125,19 +125,16 @@ export const SignUp = () => {
 
                 {
                     !username || !email || !password || password !== confirmPasswordValue || passWordRequirements.passwordMeetsAllRequirements !== true ?
+                        <div className="w-full flex flex-col">
+                            <span style={{fontSize: 10, color: "red"}}>{!username && !email? "Please add a valid username and email. " :  username || !email ? "Please add a valid email. " : !username || email ? " Please add a valid username. " : ""}
+                                {!password || !passWordRequirements.passwordMeetsAllRequirements ? "Make sure that the password meets all requirements" : ""}
+                            </span>
                             <button
-                                className="login-form-button mt-4 background-base disabled-btn"
-                                disabled={true}
-                                title={
-                                `This button is disabled because: 
-${!username ? "the username field is empty" : ""}
-${!email ? "the email field is empty" : ""}
-${!password ? "the password field is empty" : ""}
-${password !== confirmPasswordValue ? "Confirmation password doesn't matched" : ""}
-${passWordRequirements.passwordMeetsAllRequirements !== true ? "The password provided doesn't fulfill all the requirements" : ""} `}
-                            >
+                                className="not-allowed-message login-form-button background-base disabled-btn"
+                                disabled={true}>
                                 disabled
                             </button>
+                        </div>
                         :
                         <button
                             className="login-form-button mt-4 background-base cursor-pointer"
