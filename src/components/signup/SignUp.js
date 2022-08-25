@@ -50,7 +50,7 @@ export const SignUp = () => {
 
 
         const response = axios.post(`http://localhost:8080/api/users/create`, newUser)
-            .then(res => res.status).catch(error => setErrorMessage(`There was an error creating your username, please try again ${error.message}`))
+            .then(res => { setErrorMessage("")}).catch(error => setErrorMessage(`There was an error creating your username, please try again later:  ${error.message}`))
 
     };
 
