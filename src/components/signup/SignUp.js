@@ -4,6 +4,8 @@ import {AiFillCheckCircle} from "react-icons/ai";
 import {RiEyeCloseLine, RiEyeLine} from "react-icons/ri";
 import {showDataOnPasswordValidation} from "./showDataOnPasswordValidation";
 import {useValidationEffect} from "./useValidationEffect";
+import {axiosRequest} from "../../utils/axiosRequest";
+import axios from "axios";
 
 export const SignUp = () => {
     //hooks
@@ -45,6 +47,10 @@ export const SignUp = () => {
             "createdAt": "2022-08-16T21:10:16.433Z",
             "role": "USER"
         }
+
+
+        const response = axios.post(`http://localhost:8080/api/users/create`, newUser)
+            .then(res => res.status).catch(error => setErrorMessage(`There was an error creating your username, please try again ${error.message}`))
 
     };
 
