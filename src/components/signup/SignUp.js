@@ -126,20 +126,20 @@ export const SignUp = () => {
                 {
                     !username || !email || !password || password !== confirmPasswordValue || passWordRequirements.passwordMeetsAllRequirements !== true ?
                         <div className="w-full flex flex-col">
-                            <span style={{fontSize: 10, color: "red"}}>{!username && !email? "Please add a valid username and email. " :  username || !email ? "Please add a valid email. " : !username || email ? " Please add a valid username. " : ""}
-                                {!password || !passWordRequirements.passwordMeetsAllRequirements ? "Make sure that the password meets all requirements" : ""}
-                            </span>
+                            {/*<span style={{fontSize: 10, color: "red"}}>{!username && !email? "Please add a valid username and email. " :  username || !email ? "Please add a valid email. " : !username || email ? " Please add a valid username. " : ""}*/}
+                            {/*    {!password || !passWordRequirements.passwordMeetsAllRequirements ? "Make sure that the password meets all requirements" : ""}*/}
+                            {/*</span>*/}
                             <button
                                 className="not-allowed-message login-form-button background-base disabled-btn"
                                 disabled={true}>
-                                disabled
+                                Sign Up
                             </button>
                         </div>
                         :
                         <button
                             className="login-form-button mt-4 background-base cursor-pointer"
                             onClick={handleSubmit}>
-                            Sign up
+                            Sign Up
                         </button>
                 }
                 <button className="login-form-button mt-4 background-base" onClick={() => navigate("/login")}> Already
