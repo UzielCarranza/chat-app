@@ -4,10 +4,33 @@ import {AiFillCheckCircle} from "react-icons/ai";
 import {RiEyeCloseLine, RiEyeLine} from "react-icons/ri";
 import {showDataOnPasswordValidation} from "./showDataOnPasswordValidation";
 import {useValidationEffect} from "./useValidationEffect";
-import {axiosRequest} from "../../utils/axiosRequest";
 import axios from "axios";
+import {configureStore} from "@reduxjs/toolkit";
 
 export const SignUp = () => {
+
+    //Redux TODO: REMOVE THIS LOGIC INTO ITS OWN COMPONENT
+    const initialState = { value: 0 }
+
+    function counterReducer(state = initialState, action) {
+        // Check to see if the reducer cares about this action
+        if (action.type === 'counter/increment') {
+            // If so, make a copy of `state`
+            return {
+                ...state,
+                // and update the copy with the new value
+                value: state.value + 1
+            }
+        }
+        // otherwise return the existing state unchanged
+        return state
+    }
+
+
+    const store = configureStore({ reducer: counterReducer })
+
+    //Redux
+
     //hooks
     //get and set username
     const [username, setUsername] = useState(null);
@@ -38,7 +61,6 @@ export const SignUp = () => {
     const handleSubmit = event => {
         //prevents the page from reloading
         event.preventDefault();
-
         const newUser = {
             "id": 0,
             "username": username,
@@ -49,6 +71,11 @@ export const SignUp = () => {
         }
 
 
+        store.subscribe(() => console.log(store.getState()))
+
+        store.dispatch({ type: 'counter/increment' })
+
+        console.log(store.getState())
         const response = axios.post(`http://localhost:8080/api/users/create`, newUser)
             .then(res => { setErrorMessage("")}).catch(error => setErrorMessage(`There was an error creating your username, please try again later:  ${error.message}`))
 
