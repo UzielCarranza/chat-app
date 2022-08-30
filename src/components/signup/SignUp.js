@@ -11,17 +11,19 @@ export const SignUp = () => {
 
     //Redux TODO: REMOVE THIS LOGIC INTO ITS OWN COMPONENT
 
-    const initialState = { value: 0 }
+    const initialState = { username : "", email : "", password : "" }
 
     //A reducer is a function that receives the current state and an action object, decides how to update the state if necessary, and returns the new state
     function counterReducer(state = initialState, action) {
         // Check to see if the reducer cares about this action
-        if (action.type === 'counter/increment') {
+        if (action.type === 'addUser') {
             // If so, make a copy of `state`
             return {
                 ...state,
                 // and update the copy with the new value
-                value: state.value + 1
+                username: "userTest1",
+                email: "userTestEmail1",
+                password: "userTestPassword1",
             }
         }
         // otherwise return the existing state unchanged
@@ -78,7 +80,7 @@ export const SignUp = () => {
 
         // The only way to update the state is to call store.dispatch() and pass in an action object
         //The store will run its reducer function and save the new state value inside
-        store.dispatch({ type: 'counter/increment' })
+        store.dispatch({ type: 'addUser' })
 
         //we can call getState() to retrieve the updated value
         console.log(store.getState())
