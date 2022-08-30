@@ -10,8 +10,10 @@ import {configureStore} from "@reduxjs/toolkit";
 export const SignUp = () => {
 
     //Redux TODO: REMOVE THIS LOGIC INTO ITS OWN COMPONENT
+
     const initialState = { value: 0 }
 
+    //A reducer is a function that receives the current state and an action object, decides how to update the state if necessary, and returns the new state
     function counterReducer(state = initialState, action) {
         // Check to see if the reducer cares about this action
         if (action.type === 'counter/increment') {
@@ -70,12 +72,18 @@ export const SignUp = () => {
             "role": "USER"
         }
 
+        //STARTS REDUX
 
         store.subscribe(() => console.log(store.getState()))
 
+        // The only way to update the state is to call store.dispatch() and pass in an action object
+        //The store will run its reducer function and save the new state value inside
         store.dispatch({ type: 'counter/increment' })
 
+        //we can call getState() to retrieve the updated value
         console.log(store.getState())
+
+        //ENDS REDUX
         const response = axios.post(`http://localhost:8080/api/users/create`, newUser)
             .then(res => { setErrorMessage("")}).catch(error => setErrorMessage(`There was an error creating your username, please try again later:  ${error.message}`))
 
