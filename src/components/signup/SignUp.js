@@ -4,36 +4,9 @@ import {AiFillCheckCircle} from "react-icons/ai";
 import {RiEyeCloseLine, RiEyeLine} from "react-icons/ri";
 import {showDataOnPasswordValidation} from "./showDataOnPasswordValidation";
 import {useValidationEffect} from "./useValidationEffect";
-import axios from "axios";
-import {configureStore} from "@reduxjs/toolkit";
+import {store} from "../../store/store";
 
 export const SignUp = () => {
-
-    //Redux TODO: REMOVE THIS LOGIC INTO ITS OWN COMPONENT
-
-    const initialState = { username : "", email : "", password : "" }
-
-    const store = configureStore({ reducer: userReducer })
-
-    //A reducer is a function that receives the current state and an action object, decides how to update the state if necessary, and returns the new state
-    function userReducer(state = initialState, action) {
-        // Check to see if the reducer cares about this action
-        if (action.type === 'createNewUser') {
-            // If so, make a copy of `state`
-            return {
-                ...state,
-                // and update the copy with the new value
-                username: action.username,
-                email: action.email,
-                password: action.password,
-            }
-        }
-        // otherwise return the existing state unchanged
-        return state
-    }
-
-
-    //Redux
 
     //hooks
     //get and set username
@@ -98,8 +71,11 @@ export const SignUp = () => {
         console.log(store.getState())
 
         //ENDS REDUX
-        const response = axios.post(`http://localhost:8080/api/users/create`, newUser)
-            .then(res => { setErrorMessage("")}).catch(error => setErrorMessage(`There was an error creating your username, please try again later:  ${error.message}`))
+
+        navigate("/")
+
+        // const response = axios.post(`http://localhost:8080/api/users/create`, newUser)
+        //     .then(res => { setErrorMessage("")}).catch(error => setErrorMessage(`There was an error creating your username, please try again later:  ${error.message}`))
 
     };
 
