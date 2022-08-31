@@ -13,25 +13,25 @@ export const SignUp = () => {
 
     const initialState = { username : "", email : "", password : "" }
 
+    const store = configureStore({ reducer: userReducer })
+
     //A reducer is a function that receives the current state and an action object, decides how to update the state if necessary, and returns the new state
-    function counterReducer(state = initialState, action) {
+    function userReducer(state = initialState, action) {
         // Check to see if the reducer cares about this action
-        if (action.type === 'addUser') {
+        if (action.type === 'createNewUser') {
             // If so, make a copy of `state`
             return {
                 ...state,
                 // and update the copy with the new value
-                username: "userTest1",
-                email: "userTestEmail1",
-                password: "userTestPassword1",
+                username: action.username,
+                email: action.email,
+                password: action.password,
             }
         }
         // otherwise return the existing state unchanged
         return state
     }
 
-
-    const store = configureStore({ reducer: counterReducer })
 
     //Redux
 
@@ -76,11 +76,23 @@ export const SignUp = () => {
 
         //STARTS REDUX
 
-        store.subscribe(() => console.log(store.getState()))
-
         // The only way to update the state is to call store.dispatch() and pass in an action object
         //The store will run its reducer function and save the new state value inside
-        store.dispatch({ type: 'addUser' })
+        // store.dispatch({ type: 'addUser'});
+
+
+        //we can call getState() to retrieve the updated value
+        console.log(store.getState())
+        const createNewUser = () => {
+            return {
+                type: 'createNewUser',
+                username: username,
+                email: email,
+                password: password
+            }
+        }
+
+        store.dispatch(createNewUser())
 
         //we can call getState() to retrieve the updated value
         console.log(store.getState())
