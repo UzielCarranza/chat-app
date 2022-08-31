@@ -2,7 +2,7 @@ import {SplitScreen} from "../utils/SplitScreen";
 import {LeftHandComponent} from "../utils/LeftHandComponent";
 import {RightHandComponent} from "../utils/RightHandComponent";
 
-export const HomePage = props => {
+export const HomePage = user => {
     return (
         <SplitScreen
             left={LeftHandComponent}
