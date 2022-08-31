@@ -1,14 +1,16 @@
 import {useNavigate} from "react-router-dom";
 import {Login} from "../components/Login";
 import {HomePage} from "../components/HomePage";
+import {store} from "../store/store";
 
 
-export const PrivateRoute = props => {
 
-    const user = null;
+export const PrivateRoute = () => {
 
-    if (!user) return <Login/>
+    const user = store.getState();
+
+    if (user.username === '') return <Login/>
 
 
-    return <HomePage {...props}/>
+    return <HomePage {...user}/>
 }
