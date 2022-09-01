@@ -5,6 +5,7 @@ import {RiEyeCloseLine, RiEyeLine} from "react-icons/ri";
 import {showDataOnPasswordValidation} from "./showDataOnPasswordValidation";
 import {useValidationEffect} from "./useValidationEffect";
 import {store} from "../../store/store";
+import {LoadingComponent} from "../LoadingComponent";
 
 export const SignUp = () => {
 
@@ -33,26 +34,14 @@ export const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+    const [isLoading, setIsLoading] = useState(false);
+
 
     //fires up once the sing up button gets click
     const handleSubmit = event => {
         //prevents the page from reloading
         event.preventDefault();
-        const newUser = {
-            "id": 0,
-            "username": username,
-            "email": email,
-            "password": password,
-            "createdAt": "2022-08-16T21:10:16.433Z",
-            "role": "USER"
-        }
-
         //STARTS REDUX
-
-        // The only way to update the state is to call store.dispatch() and pass in an action object
-        //The store will run its reducer function and save the new state value inside
-        // store.dispatch({ type: 'addUser'});
-
 
         //we can call getState() to retrieve the updated value
         console.log(store.getState())
@@ -65,14 +54,15 @@ export const SignUp = () => {
             }
         }
 
+        // The only way to update the state is to call store.dispatch() and pass in an action object
+        //The store will run its reducer function and save the new state value inside
         store.dispatch(createNewUser())
 
         //we can call getState() to retrieve the updated value
         console.log(store.getState())
-
         //ENDS REDUX
 
-        navigate("/")
+        setIsLoading(true);
 
         // const response = axios.post(`http://localhost:8080/api/users/create`, newUser)
         //     .then(res => { setErrorMessage("")}).catch(error => setErrorMessage(`There was an error creating your username, please try again later:  ${error.message}`))
@@ -85,99 +75,102 @@ export const SignUp = () => {
 
     return (
         <div className="form-wrapper">
-            <form className="login-form" onSubmit={handleSubmit}>
-                <h3>Create your account </h3>
-                {/*fires up when there is an error with the log in process*/}
-                {errorMessage && <p className="error-message">{errorMessage}</p>}
-                {/*username input*/}
-                <div className="divider">
-                    <input
-                        id="username"
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        className="login-form-input"
-                        onChange={event => setUsername(event.target.value)}
-                        required
-                    />
-                </div>
-                <div className="divider">
-                    <input
-                        id="email"
-                        type="email"
-                        name="email"
-                        placeholder="email address"
-                        className="login-form-input"
-                        onChange={event => setEmail(event.target.value)}
-                        required
-                    />
-                </div>
-                {/*password input*/}
-                <div className="divider flex flex-row items-center w-full">
-                    <input
-                        id="password"
-                        type={showPassword ? "text" : "password"}
-                        name="password"
-                        placeholder="password"
-                        className="login-form-input"
-                        onChange={event => setPassword(event.target.value)}
-                        onClick={() => setShowValidation(true)}
-                        autoComplete="true"
-                        required
-                    />
-                    <div className="ml-4">
-                        {showPassword ? <RiEyeLine onClick={() => setShowPassword(!showPassword)}/> :
-                            <RiEyeCloseLine onClick={() => setShowPassword(!showPassword)}/>}
-                    </div>
-                </div>
-                {showDataOnPasswordValidation(showValidation, passWordRequirements)}
 
-                {/*confirm password field*/}
-                <div className="divider flex flex-row items-center w-full">
-                    <input
-                        type={showConfirmPassword ? "text" : "password"}
-                        name="passwordConfirmation"
-                        placeholder="confirm password"
-                        className="login-form-input"
-                        onChange={event => setConfirmPasswordValue(event.target.value)}
-                        autoComplete="on"
-                        required
-                    />
-                    <div className="ml-4">
-                        {showConfirmPassword ?
-                            <RiEyeLine onClick={() => setShowConfirmPassword(!showConfirmPassword)}/> :
-                            <RiEyeCloseLine onClick={() => setShowConfirmPassword(!showConfirmPassword)}/>}
+            {isLoading ? <LoadingComponent/> :
+                <form className="login-form" onSubmit={handleSubmit}>
+                    <h3>Create your account </h3>
+                    {/*fires up when there is an error with the log in process*/}
+                    {errorMessage && <p className="error-message">{errorMessage}</p>}
+                    {/*username input*/}
+                    <div className="divider">
+                        <input
+                            id="username"
+                            type="text"
+                            name="username"
+                            placeholder="Username"
+                            className="login-form-input"
+                            onChange={event => setUsername(event.target.value)}
+                            required
+                        />
                     </div>
-                </div>
-                {password === confirmPasswordValue && password.length >= 8 ?
-                    <div className="flex justify-start mt-2"><AiFillCheckCircle style={{color: 'green'}}/><small>Password
-                        matches</small></div> :
-                    " "}
+                    <div className="divider">
+                        <input
+                            id="email"
+                            type="email"
+                            name="email"
+                            placeholder="email address"
+                            className="login-form-input"
+                            onChange={event => setEmail(event.target.value)}
+                            required
+                        />
+                    </div>
+                    {/*password input*/}
+                    <div className="divider flex flex-row items-center w-full">
+                        <input
+                            id="password"
+                            type={showPassword ? "text" : "password"}
+                            name="password"
+                            placeholder="password"
+                            className="login-form-input"
+                            onChange={event => setPassword(event.target.value)}
+                            onClick={() => setShowValidation(true)}
+                            autoComplete="true"
+                            required
+                        />
+                        <div className="ml-4">
+                            {showPassword ? <RiEyeLine onClick={() => setShowPassword(!showPassword)}/> :
+                                <RiEyeCloseLine onClick={() => setShowPassword(!showPassword)}/>}
+                        </div>
+                    </div>
+                    {showDataOnPasswordValidation(showValidation, passWordRequirements)}
 
-                {
-                    !username || !email || !password || password !== confirmPasswordValue || passWordRequirements.passwordMeetsAllRequirements !== true ?
-                        <div className="w-full flex flex-col">
-                            {/*<span style={{fontSize: 10, color: "red"}}>{!username && !email? "Please add a valid username and email. " :  username || !email ? "Please add a valid email. " : !username || email ? " Please add a valid username. " : ""}*/}
-                            {/*    {!password || !passWordRequirements.passwordMeetsAllRequirements ? "Make sure that the password meets all requirements" : ""}*/}
-                            {/*</span>*/}
+                    {/*confirm password field*/}
+                    <div className="divider flex flex-row items-center w-full">
+                        <input
+                            type={showConfirmPassword ? "text" : "password"}
+                            name="passwordConfirmation"
+                            placeholder="confirm password"
+                            className="login-form-input"
+                            onChange={event => setConfirmPasswordValue(event.target.value)}
+                            autoComplete="on"
+                            required
+                        />
+                        <div className="ml-4">
+                            {showConfirmPassword ?
+                                <RiEyeLine onClick={() => setShowConfirmPassword(!showConfirmPassword)}/> :
+                                <RiEyeCloseLine onClick={() => setShowConfirmPassword(!showConfirmPassword)}/>}
+                        </div>
+                    </div>
+                    {password === confirmPasswordValue && password.length >= 8 ?
+                        <div className="flex justify-start mt-2"><AiFillCheckCircle style={{color: 'green'}}/><small>Password
+                            matches</small></div> :
+                        " "}
+
+                    {
+                        !username || !email || !password || password !== confirmPasswordValue || passWordRequirements.passwordMeetsAllRequirements !== true ?
+                            <div className="w-full flex flex-col">
+                                {/*<span style={{fontSize: 10, color: "red"}}>{!username && !email? "Please add a valid username and email. " :  username || !email ? "Please add a valid email. " : !username || email ? " Please add a valid username. " : ""}*/}
+                                {/*    {!password || !passWordRequirements.passwordMeetsAllRequirements ? "Make sure that the password meets all requirements" : ""}*/}
+                                {/*</span>*/}
+                                <button
+                                    className="not-allowed-message login-form-button background-base disabled-btn"
+                                    disabled={true}>
+                                    Sign Up
+                                </button>
+                            </div>
+                            :
                             <button
-                                className="not-allowed-message login-form-button background-base disabled-btn"
-                                disabled={true}>
+                                className="login-form-button mt-4 background-base cursor-pointer"
+                                onClick={handleSubmit}>
                                 Sign Up
                             </button>
-                        </div>
-                        :
-                        <button
-                            className="login-form-button mt-4 background-base cursor-pointer"
-                            onClick={handleSubmit}>
-                            Sign Up
-                        </button>
-                }
-                <button className="login-form-button mt-4 background-base" onClick={() => navigate("/login")}> Already
-                    have an
-                    account?
-                </button>
-            </form>
+                    }
+                    <button className="login-form-button mt-4 background-base"
+                            onClick={() => navigate("/login")}> Already
+                        have an
+                        account?
+                    </button>
+                </form>}
         </div>
     )
 }
