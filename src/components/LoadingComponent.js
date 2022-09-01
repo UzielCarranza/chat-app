@@ -1,29 +1,42 @@
-import React from "react";
 import ReactLoading from "react-loading";
 
-export const Loading = () => {
+import React, {useState, useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+
+function LoadingImage() {
+    //Return the loading animation
     return (
-        <div>
-            <h2>Loading in ReactJs - GeeksforGeeks</h2>
-            <ReactLoading type="balls" color="#0000FF"
-                          height={100} width={50}/>
-            <ReactLoading type="bars" color="#0000FF"
-                          height={100} width={50}/>
-            <ReactLoading type="bubbles" color="#0000FF"
-                          height={100} width={50}/>
-            <ReactLoading type="cubes" color="#0000FF"
-                          height={100} width={50}/>
-            <ReactLoading type="cylon" color="#0000FF"
-                          height={100} width={50}/>
-            <ReactLoading type="spin" color="#0000FF"
-                          height={100} width={50}/>
-            <ReactLoading type="spokes" color="#0000FF"
-                          height={100} width={50}/>
+        <>
             <ReactLoading
                 type="spinningBubbles"
-                color="#0000FF"
-                height={100}
-                width={50}
+                color="#fff"
+                height={200}
+                width={150}
             />
-        </div>)
+        </>
+    )
+
+}
+
+export const LoadingComponent = () => {
+    //hook that keeps track of the state of the loading statement
+    const [isLoading, setIsLoading] = useState(true);
+
+//let's you navigate to other pages programmatically
+    const navigate = useNavigate()
+
+
+    useEffect(() => {
+
+        // Wait for 3 seconds
+        setTimeout(() => {
+            setIsLoading(false);
+            //go to the homescreen
+            navigate("/")
+        }, 8000);
+    }, []);
+
+
+    //return the Loading animation component on is loading statement to true
+    return isLoading && <LoadingImage/>
 }
