@@ -53,6 +53,10 @@ LOG IN COMPONENT
 .disabled-btn:hover{
     @apply bg-gray-600
 }
+.show-password{
+    position: absolute;
+    margin-left: 11.3em;
+}
 
 /*
 ENDS LOG IN COMPONENT
