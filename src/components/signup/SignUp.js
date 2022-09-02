@@ -88,7 +88,7 @@ export const SignUp = () => {
                             type="text"
                             name="username"
                             placeholder="Username"
-                            className="login-form-input"
+                            className="login-form-input no-padding"
                             onChange={event => setUsername(event.target.value)}
                             required
                         />
@@ -99,7 +99,7 @@ export const SignUp = () => {
                             type="email"
                             name="email"
                             placeholder="email address"
-                            className="login-form-input"
+                            className="login-form-input no-padding"
                             onChange={event => setEmail(event.target.value)}
                             required
                         />

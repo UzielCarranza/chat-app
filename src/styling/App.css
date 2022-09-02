@@ -19,6 +19,12 @@ LOG IN COMPONENT
 }
 
 .login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    justify-items: center;
     @apply h-auto bg-white shadow-md rounded px-12 pt-6 pb-12
 }
 
@@ -44,7 +50,11 @@ LOG IN COMPONENT
 }
 
 .divider{
-    @apply mt-4 p-2
+    @apply mt-4 p-2 w-full flex flex-row items-center w-full
+}
+
+.no-padding{
+    padding-right: 0!important;
 }
 
 .disabled-btn{
