@@ -162,7 +162,7 @@ export const SignUp = () => {
                                 Sign Up
                             </button>
                     }
-                    <button className="login-form-button mt-4 background-base"
+                    <button className="login-form-button mt-4 background-base flex flex-row items-center w-full"
                             onClick={() => navigate("/login")}> Already
                         have an
                         account?
