@@ -117,7 +117,7 @@ export const SignUp = () => {
                             autoComplete="true"
                             required
                         />
-                        <div className="ml-4">
+                        <div className="show-password">
                             {showPassword ? <RiEyeLine onClick={() => setShowPassword(!showPassword)}/> :
                                 <RiEyeCloseLine onClick={() => setShowPassword(!showPassword)}/>}
                         </div>
@@ -135,7 +135,7 @@ export const SignUp = () => {
                             autoComplete="on"
                             required
                         />
-                        <div className="ml-4">
+                        <div className="show-password">
                             {showConfirmPassword ?
                                 <RiEyeLine onClick={() => setShowConfirmPassword(!showConfirmPassword)}/> :
                                 <RiEyeCloseLine onClick={() => setShowConfirmPassword(!showConfirmPassword)}/>}
@@ -149,9 +149,6 @@ export const SignUp = () => {
                     {
                         !username || !email || !password || password !== confirmPasswordValue || passWordRequirements.passwordMeetsAllRequirements !== true ?
                             <div className="w-full flex flex-col">
-                                {/*<span style={{fontSize: 10, color: "red"}}>{!username && !email? "Please add a valid username and email. " :  username || !email ? "Please add a valid email. " : !username || email ? " Please add a valid username. " : ""}*/}
-                                {/*    {!password || !passWordRequirements.passwordMeetsAllRequirements ? "Make sure that the password meets all requirements" : ""}*/}
-                                {/*</span>*/}
                                 <button
                                     className="not-allowed-message login-form-button background-base disabled-btn"
                                     disabled={true}>
