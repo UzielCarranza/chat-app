@@ -32,7 +32,7 @@ export const Login = () => {
                 {/*fires up when there is an error with the log in process*/}
                 {errorMessage && <p className="error-message">{errorMessage}</p>}
                 {/*username input*/}
-                <div className="divider">
+                <div className="divider"  style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                     <label className="login-form-label" htmlFor="username">
                         Email
                     </label>
@@ -47,7 +47,7 @@ export const Login = () => {
                     />
                 </div>
                 {/*password input*/}
-                <div className="divider">
+                <div className="divider"  style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                     <label className="login-form-label" htmlFor="password">
                         Password
                     </label>
